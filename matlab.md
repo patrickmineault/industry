@@ -1,6 +1,6 @@
 ## Transitioning away from Matlab
 
-In my last article, I talked about how I got a job in industry. I had been programming Python on and off for 10 years when I got my first non-academic job. Having proficiency in a language that people use outside of academia will improve your chances of getting a job in industry. Learning a new language will also grow your abilities as a programmer and will unlock new projects and analyses you might have otherwise been afraid to tackle. 
+[In my last article](https://xcorr.net/2020/02/18/how-i-got-a-job-in-industry/), I talked about how I got a job in industry. I had been programming Python on and off for 10 years when I got my first non-academic job. Having proficiency in a language that people use outside of academia will improve your chances of getting a job in industry. Learning a new language will also grow your abilities as a programmer and will unlock new projects and analyses you might have otherwise been afraid to tackle. 
 
 What if you're in a lab that's been using Matlab for years and you haven't had a chance to learn Python? Here's my guide to transition off of Matlab to Python. There are a few specific links to neuroscience at the end of the article, but it should be useful to anybody approaching Python from a Matlab background.
 
@@ -21,7 +21,19 @@ By starting from scratch you will learn new things you couldn't do before at all
 
 ### How long will it take to learn Python?
 
-[500 hours](https://qr.ae/T3Q1WK). Ok, that number is made up, but it's probably not far from the truth. You can learn the syntax in a weekend. You can make your first significant project in a few days. However, proficiency comes with time. Don't wait until 3 weeks before a technical interview to start learning. 've seen candidates do this, it's not good. You're better off asking for an interview in Matlab if you don't have hundreds of hours of Python under your belt. Start today, keep at it every day (1-2 hours a day will suffice) and it will pay off. 
+[500 hours](https://qr.ae/T3Q1WK). Ok, that number is made up, but it's probably not far from the truth. You can learn the syntax in a weekend. You can make your first significant project in a few days. However, proficiency comes with time. Don't wait until 3 weeks before a technical interview to start learning. I've seen candidates do this, it's not good. You're better off asking for an interview in Matlab if you don't have hundreds of hours of Python under your belt. Start today, keep at it every day (1-2 hours a day will suffice) and it will pay off. 
+
+### Why is Python so popular anyway?
+
+[Yoshua Bengio](https://en.wikipedia.org/wiki/Yoshua_Bengio). Again, I'm halfway joking, but one of the biggest reasons people have moved away from Matlab was the adoption of Python for deep learning. It started with Theano, which came out of Bengio's lab. It built on numpy, scipy, sklearn and jupyter, all of which predated the rise of deep learning. Then came Tensorflow. People at Google were already using Python; Guido von Rossum, creator of Python, was famously employed by Google at one point. Google needed a high-level language to iterate quickly on models; many of the people involved in Theano were involved in Tensorflow. Python made sense. 
+
+It could have landed another way. [We might all be using Lua instead if Yann had prevailed over Yoshua](http://torch.ch/)! But combine industry pressure, lots of money, the education sector needing a good first language, and open source, and Python is a runaway success now. And it might change in the future. Maybe we'll all be using Swift in the future. Or Rust. Or Julia (my personal favorite!). For now, Python is the language to learn.
+
+### I don't even hate Matlab
+
+I've used Matlab extensively. I've been deep enough to create my own mex files and using Java. I've created GUIs in GUIDE. I have created pretty big codebases and classes. I even coded up my own neural net framework which I never published. 
+
+I'm not going to bash Matlab here. You can write good code in Matlab - and many people that have been using Matlab for years end up writing disciplined code. However, I have seen a lot of Matlab code of a certain kind - using matrices for everything (even though Matlab has dataframes and hashmaps!), avoiding for loops (even though it has a great JIT!), using a giant set of globals in GUIDE (there's a way of writing good GUIDE apps, I'm sure!). It will take a little bit of work to unlearn these old habits if you have them. 
 
 ### A curriculum
 
@@ -40,12 +52,21 @@ Most of these websites will have some sort of live evaluation directly on the we
 
 At this point you could consider using Python for a project (no data science stuff yet). The first app I made was a GUI to upload files to a website. A few years later I made an app in PyQT to annotate physiological recordings with notes. You could make a website. Lots of different projects but basically make sure you cover the basics, meaning:
 
-* functions
-* modules
-* tuples, dicts and lists
-* classes
-* strings
-* file IO
+* functions - these will trip you up. Python has pass-by-reference semantics for object types. In Matlab, a function cannot modify its arguments (unless it's a reference object, but these are pretty uncommon). But in Python you can mess with your arguments:
+```python
+def my_append_fun(a)
+    a.append('b')
+
+c = ['a']
+my_append_fun(c)
+print(c)
+# Prints ['a', 'b']
+```
+It's not good practice to do this, but you might do this accidentally and you will be very confused.
+* modules - in Matlab, one file = one function (unless it's an internal function private to that file). In Python you can have multiple functions and classes inside a file. Each file defines a module that can be imported. Then there's other people's modules! pip! Understanding how and when a certain module or function is accessible is one of the subtle things about Python. 
+* tuples, dicts and lists. A simple write-only type for fixed-length groups; a super-powerful hashmap type; and a variable-length vector. It will take you a while to understand the trade-offs for each of these types. Your assumptions will be wrong! You might think appending to a list in a for loop is super slow, because appending to a vector is super slow in Matlab. Wrong! It's actually super fast. 
+* classes. Classes are behaviour + data. Maybe you've been doing OOP in Matlab. If not, it's time to pick it up!
+* strings and file IO. Format strings, `with` statements, StringIO, regex - all workaday things in a general purpose programming language that you might never have touched in Matlab.
 
 ### Becoming stronger
 
@@ -104,7 +125,7 @@ Know of another indispensable tool? Write it in the comments.
 
 At this point you might start developing significant codebases. Will you be putting everything in Dropbox? No, you'll be using `git`! You'll need to know the command line. [Follow the software carpentry class](https://software-carpentry.org/lessons/index.html) and learn .
 
-To really step up your game, contribute to an open source project. If you're unsure where to start, [join a Brainhack event](https://www.brainhack.org/) - people will ask for volunteers for their projects and they'll guide you through the process of making a submission. Friendships will be created! Collaborations hatched! Bagels will be had!
+To really step up your game, contribute to an open source project. If you're unsure where to start, [join a Brainhack event](https://www.brainhack.org/) - people will ask for volunteers for their projects and they'll guide you through the process of making a submission. Friendships will be created! Collaborations hatched! Bagels will be had! 
 
 ### Make it social
 
