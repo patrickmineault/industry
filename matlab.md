@@ -89,7 +89,7 @@ It's finally time learn the data science pipeline. Because you will have learned
 * sklearn for machine learning
 * jupyter for dynamic notebooks
 
-The hardest package to learn for people coming from a Matlab background is `pandas`. Why would anyone want to use pandas?  *Can't I just use a matrix?* 
+The hardest package to learn for many people coming from a Matlab background is `pandas`. Why would anyone want to use pandas? *Can't I just use a matrix?* 
 
 How many times has your PhD advisor told you to label your axes in your plots? A thousand times? Labeling axes is important to understand what the data means. When you index into an unlabelled matrix, say `df(:, 7)`, you're giving yourself the possibility of forgetting what the data means. Wouldn't it be better to use `df.reaction_time_ms`? Yes!
 
@@ -99,13 +99,13 @@ You might even have learned how to do reductions, querying and aggregations on r
 mean(df(df(:, 1)==10, 7))
 ```
 
-That's bad! What it you add a column in your CSV? Then column 7 becomes column 8, your stats are wrong and you'll lose months tracking down the issue. This code is super error-prone and makes kittens cry. Learn the pandas way: 
+That's bad! What it you add a column in your CSV? Then column 7 becomes column 8, your stats are wrong and you'll lose months tracking down the issue. This code is super error-prone and makes kittens cry. I'm not saying it's impossible to do this the right way in Matlab - I'm just saying that's often how people do it. Compare the pandas way: 
 
 ```python
 df.query('participant_id == 10').reaction_time_ms.mean()
 ```
 
-At this point you'll need to practice these new found skills. [Join a Kaggle competition](https://www.kaggle.com/), or [follow a data science MOOC](https://www.coursera.org/specializations/jhu-data-science).
+ At this point you'll need to practice your new skills. [Join a Kaggle competition](https://www.kaggle.com/), or [follow a data science MOOC](https://www.coursera.org/specializations/jhu-data-science).
 
 ### Specialized tools for neuroscience
 
@@ -129,7 +129,7 @@ To really step up your game, contribute to an open source project. If you're uns
 
 ### Make it social
 
-People don't realize how social programming is. As a software enginner at Google, I:
+People don't realize how social programming is. As a software engineer at Google, I:
 
 * Learned about the core tooling in seminars with other engineers
 * Had people review my code
