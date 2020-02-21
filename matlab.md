@@ -62,13 +62,13 @@ my_append_fun(c)
 print(c)
 # Prints ['a', 'b']
 ```
-It's not good practice to do this, but you might do this accidentally and you will be very confused.
+It's not good practice to do this, but you might do it accidentally and you will be very confused.
 * modules - in Matlab, one file = one function (unless it's an internal function private to that file). In Python you can have multiple functions and classes inside a file. Each file defines a module that can be imported. Then there's other people's modules! pip! Understanding how and when a certain module or function is accessible is one of the subtle things about Python. 
 * tuples, dicts and lists. A simple write-only type for fixed-length groups; a super-powerful hashmap type; and a variable-length vector. It will take you a while to understand the trade-offs for each of these types. Your assumptions will be wrong! You might think appending to a list in a for loop is super slow, because appending to a vector is super slow in Matlab. Wrong! It's actually super fast. 
 * classes. Classes are behaviour + data. Maybe you've been doing OOP in Matlab. If not, it's time to pick it up!
 * strings and file IO. Format strings, `with` statements, StringIO, regex - all workaday things in a general purpose programming language that you might never have touched in Matlab.
 
-### Becoming stronger
+### Data structures and algorithms
 
 Consider learning about data structures and algorithms. Many professional programmers are self-taught and never really learn about these fundamentals. They learn intuitively what is slow and fast, and can code many non-trivial algorithms. They might even use complexity analysis (O notation). 
 
@@ -105,6 +105,8 @@ That's bad! What it you add a column in your CSV? Then column 7 becomes column 8
 df.query('participant_id == 10').reaction_time_ms.mean()
 ```
 
+[Take the time to read the pandas tutorial in full](https://pandas.pydata.org/pandas-docs/stable/getting_started/10min.html). You might want to pick up a book as well after a little while, for instance [Python for Data Science](https://www.oreilly.com/library/view/python-for-data/9781491957653/). 
+
  At this point you'll need to practice your new skills. [Join a Kaggle competition](https://www.kaggle.com/), or [follow a data science MOOC](https://www.coursera.org/specializations/jhu-data-science).
 
 ### Specialized tools for neuroscience
@@ -118,14 +120,23 @@ At this point you might be productive enough to use Python on a daily basis. Con
 * [Psychopy](https://www.psychopy.org/) for visual stimulus presentation
 * [neo](https://github.com/NeuralEnsemble/python-neo) for managing electrophysiology data in Python
 * [MNE](https://mne.tools/dev/auto_tutorials/intro/plot_10_overview.html) for EEG analysis
+* [PyMC3](https://docs.pymc.io/) for Bayesian inference
 
 Know of another indispensable tool? Write it in the comments.
 
+### Transition existing pipelines to Matlab
+
+It will be hard to transition pipelines developed over years wholesale out of Matlab and into Python. You'll want to freeze data obtained after running a pipeline into a file format that you can transport from Matlab to Python. [Matlab's .mat file format is readable in Python](https://scipy-cookbook.readthedocs.io/items/Reading_mat_files.html). Since v7.3 .mat files are in the hdf5 file format, for which Python has excellent support. 
+
+In the future, you might find that you need Matlab for very little, and only one or two recalcitrant pipelines will need to be maintained. [You could wrap these pipelines in a docker image](https://github.com/mathworks-ref-arch/matlab-dockerfile), so they keep working for years to come, despite changes in OS and Matlab versions.
+
 ### Becoming proficient
 
-At this point you might start developing significant codebases. Will you be putting everything in Dropbox? No, you'll be using `git`! You'll need to know the command line. [Follow the software carpentry class](https://software-carpentry.org/lessons/index.html) and learn .
+At this point you might start developing significant codebases. Will you be putting everything in Dropbox? No, you'll be using `git`! You'll need to know the command line. [Follow the software carpentry class](https://software-carpentry.org/lessons/index.html) and learn about the Unix terminal and source control.
 
 To really step up your game, contribute to an open source project. If you're unsure where to start, [join a Brainhack event](https://www.brainhack.org/) - people will ask for volunteers for their projects and they'll guide you through the process of making a submission. Friendships will be created! Collaborations hatched! Bagels will be had! 
+
+Perhaps you'll feel the need for speed at this point. Tear through billion row datasets with [Spark](https://docs.pymc.io/) or [dask](https://dask.org/). JIT your for loops or compile them down to C with [Cython](https://cython.org/), [numba](https://numba.pydata.org/) or [jax](https://github.com/google/jax). [Monte Carlo simulations with a thousand parallel chains](https://rlouf.github.io/post/jax-random-walk-metropolis/)? Not a problem!
 
 ### Make it social
 
