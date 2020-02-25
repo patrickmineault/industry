@@ -63,3 +63,4 @@ Responses:
 * Seaborn has a handful of nice plots and is quite popular.
 * My favorites mimic the grammar of graphics (ggplot2 in R)
 * https://plotnine.readthedocs.io/en/stable/
+* Montreal's own plotly! Datashader!
