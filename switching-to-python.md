@@ -13,7 +13,7 @@ Responses:
 * Lack of variable window Which ide? Jupyter seems popular but hard to track variables
 * Making nice figures
 
-### How do I get started? I don't have a whole lot of free tie
+### How do I get started? I don't have a whole lot of free time
 
  * Apps on the go
  * software carpentry
@@ -35,10 +35,10 @@ Responses:
 * Support for out-of-core computation with dask and spark.
 * Jupyter lab can run in the cloud on arbitrarily powerful machines
 * Nevertheless:
-    * Jupyterlab has an extension
-    * Spyder has a window
-    * You can do it in pure python as well
-    * in ipython and in jupyter, you can use the %whos magic command.
+    * Jupyterlab has an extension.
+    * Spyder has a window just for that.
+    * You can do it in pure python as well.
+    * in ipython and in jupyter, you can use the `%whos` magic command.
 
 ### How do you think about 0-indexing and the order of dimensions?
 
