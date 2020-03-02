@@ -32,7 +32,7 @@ We've identified a good script or function to rewrite. Should we start writing P
 
 * Making constants changeable
 * Making the code more modular
-* Using Pythonic data structures
+* Using Pythonic data structures, for example using `pandas` to store time series.
 
 In any case, we have to build on a solid foundation - a reference. Once we replicate the original behaviour and commit it to a repo, we can improve it later in a new commit.
 
@@ -159,6 +159,7 @@ Now that we've picked our tests, and picked how we'll organize our code, we can 
 * Saving to hdf5 in Matlab and loading in Python will invert axes because of the distinction between C and Fortran order. This will cause you endless headaches. You will have to swap axes front to back, for example. For example, if you save a three-dimensional tensor in Matlab `A` and then load it back in Python via hdf5, you will need to call `A.swapaxes((2, 1, 0))` to get back the original tensor.
 * Be careful with dimension-one vectors! If you have a one-dimension vector `a` of shape `(N, )`, then a.dot(a.T) gives you a vector of the shape `(N, )`. It will not be a scalar nor a matrix. If you wanted to computer the outer product of `a` with itself, use `a.reshape((-1, 1)).dot(a.reshape((1, -1)))`.
 * Hidden dot products can cause problems! The `*` operator applies to scalars and to vectors in Matlab, and the semantics are different depending on the dimension of the operands. Check the dimensions of the intermediate products with `assert` statements.
+* Objects in Python have pass-by-reference semantics. Several methods in numpy modify data in place. Be careful! Sometimes, you will explictly need to `copy()` your data.
 * Look at your data! Don't fly blind!
 
 You might want to consider translating parts of your numerics to [PyTorch](https://pytorch.org/) or [Tensorflow](https://www.tensorflow.org/) directly, especially if you want to take advantage of automatic differentiation. Performance-sensitive code can be JIT'ed using [jax](https://github.com/google/jax) or [numba](https://numba.pydata.org/), or rewritten in [Cython](https://cython.org/). Start small and optimize as necessary.
