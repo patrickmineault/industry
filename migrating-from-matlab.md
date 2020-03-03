@@ -130,21 +130,26 @@ class ChaoticRnn:
 
     # Many more lines of code here.
 
-if __name__ == '__main__':
-    # Run the tests.
+def _run_tests():
+    # one test.
     instance = ChaoticRnn()
     assert instance.t == 0
+    # more tests here...
 
-    # ...more test here...
+if __name__ == '__main__':
+    # Run the tests.
+    _run_tests()
 ```
 
-When our code is incorrect, the tests should raise errors, which will stop execution. You will see a big old error on the command line, and then you know that you must correct the code. You can raise an error by:
+We put our tests inside the function `_run_tests()` - this prevents us from polluting the module namespace with variables that may have the same name as other variables inside of function.
+
+When the code is run, the tests should raise errors if the output is not as expected, which will stop execution. You will see a big old error on the command line, and then you know that you must correct the code. You can raise an error by:
 
 * Using the `assert` statement. It raises an error whenever the statement is False. 
 * Using the methods in [`np.testing`](https://docs.scipy.org/doc/numpy/reference/routines.testing.html). These methods can check whether, for example, a numpy array's elements are all close to a reference (within numeric error).
 * Using the `raise` statement to manually raise an error.
 
-That's really all you need to test code. [Numerous unit-testing libraries in Python exist](https://realpython.com/python-testing/), but at their core is the same idea: create code that raises an error when the output not what is expected.
+That's really all you need to test code. [Numerous unit-testing libraries in Python exist](https://realpython.com/python-testing/), but at their core is the same idea: create code that raises an error when the output not what is expected. In general, it will be better to keep the code under 
 
 ### Picking organization
 
@@ -168,7 +173,7 @@ You might want to consider translating parts of your numerics to [PyTorch](https
 
 I ran into multiple issues translating the rather short code I was working. The issues were subtle - incorrect manipulation of dimension-1 vectors, off by 1 errors. Having reference code and functional tests allowed me to isolate these issues, fix them, and replicate the original functionality exactly. 
 
-[The translated code is available here](https://github.com/patrickmineault/test-driven-migration/blob/master/chaotic_rnn.py). I imported the code into a notebook and ran on some example here. 
+[The translated code is available here](https://github.com/patrickmineault/test-driven-migration/blob/master/chaotic_rnn.py). [I imported the code into a notebook and generated some figures from it](https://github.com/patrickmineault/test-driven-migration/blob/master/Use%20chaotic%20RNN.ipynb) - it runs! 
 
 Is your codebase is too big to translate to Python? Perhaps you would prefer to take a snapshot of your current pipeline and call it inside of a virtual environment. Running Matlab in Docker is tricky but it could keep your legacy pipelines running for the next decade. Curious? Write a comment below - if there is enough interest I will write a new article about it.
 
