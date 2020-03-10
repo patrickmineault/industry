@@ -13,16 +13,33 @@
 * Expansion to second order
 * Scale of the expansion is important!
 * We have $f(x) \approx x_0 + \nabla f \cdot \dot (x - x0)$
+* Note that for a linear model, the plane that best approximates the behaviour of the function and the average gradient of the model, which points towards the stimulus which drives the system best, are one and the same. 
 
 ### Natural evolution strategies
 
-* Natural evolution strategies estimate an averaged gradient of a (potentially non-differentiable) function within a neighborhood.
-* The idea here is to approximate a function locally, in a least-squares sense via a weighted estimate from a plane.
-* A standard neighborhood which is often used is the isotropic (gaussian) one with a standard deviation $\sigma$.
-* We can use the log-derivative trick to find an estimate of the linear function.
-* It turns out that this is exactly equal to the response triggered average with an isotropic gaussian stimulus ensemble.
-* The paper proposes an interesting trick to increase the efficiency of estimation: pairing every stimulus with its opposite. 
-* This increases efficiency by x.
+* Natural evolution strategies (NES) are a family of black-box, gradient-free optimizers for (potentially non-differentiable) functions.
+* The idea is to calculate the derivative of the *expectation* a function $f$ in a local neighborhood.
+* The neighborhood is defined via a density $\pi(\theta, z)$.
+* We can use the log-derivative trick to propagate the gradient through the expectation: 
+
+$$\nabla_\theta E_\pi(z, \theta)[f(z)] = \nabla \int \pi(z, \theta) f(z) dz \newline = \int \nabla \pi(z, \theta) f(z) dz \newline
+= \int \nabla \log \pi(z, \theta) \pi(z, \theta) f(z) dz$$
+
+Where the last equality is derived from:
+
+$$\nabla \log \pi(z,\theta) = \frac{\nabla \pi(z, \theta)}{\pi(z, \theta)}$$
+
+* A standard neighborhood which is often used in practice is the isotropic gaussian centered at $\mu$ with a standard deviation $\sigma$.
+* If we take a Monte Carlo estimate of the expectation, we find an approximation for gradient as:
+
+$$\nabla E[f] \approx \frac{1}{N} \sum_{1}^N \frac{1}{\sigma^2} (z-\mu) f(z)$$
+
+* This is exactly the response triggered average with an isotropic gaussian stimulus ensemble.
+* Thus, we can view reverse correlation as estimating an approximate gradient of the response function of a neuron
+* This reveals an unexpected link between reverse correlation and optimization: the response triggered average tells us how we should change a stimulus locally to increase the response of the system
+* We could use reverse correlation as a subroutine in a closed-loop strategy to estimate the prefered stimulus of a neuron. Wierstra et al. (2014) present a complex method based on following the natural gradient of the estimate that works well in practice. 
+* Because of the resurgence of interest in the application of black-box optimization for reinforcement learning and meta-optimization, we can learn a lot of interesting tricks to optimize standard reverse correlation by perusing this literature.
+* My favorite interesting trick to increase the efficiency of estimation: pairing every stimulus with its opposite. This simple tweak increases efficiency of estimation by x.
 
 ### LIME
 
@@ -47,6 +64,11 @@
 * LIME can be used to open a deep net's black box around a given stimulus class center or a particular exemplar
 * New classes of estimations can be found - in particular, we can apply the technique of STC (aka the order 2 Wiener-Volterra expansion) to find the invariant dimensions of a deep net.
 * Sampling could be improved in the current implementation of LIME. Data points are sampled from a Gaussian distribution, ignoring the correlation between features. This can lead to unlikely data points which can then be used to learn local explanation models.
+
+### Open questions
+
+* Can the brain implement scoring to learn to go down a gradient?
+* Can the brain implement REINFORCE?
 
 ### Notes
 
