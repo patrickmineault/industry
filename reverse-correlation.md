@@ -41,9 +41,7 @@ Here $D$ is the data distribution. Orthogonality is imposed via a Gram-Schmidt o
 
 It turns out that the expectations of every order are straightforward to calculate when the data distribution $D$ is normal. The 0'th order and 1st order functionals are simply the constant and linear Volterra kernels. The 2nd order functional is the quadratic kernel minus a correction for the diagonal terms of the kernel, since the square of a normal distribution has a mean equal to the square of the variance, $\mathbb E[x^2] = \sigma^2$. Thus:
 
-$$G_0 = k_0 \newline 
-G_1 = (x - x_0)^T k_1 \newline
-G_2 = (x - x_0)^T k_2 (x - x_0) - \sigma^2 \sum_j k_2^{jj}\newline$$
+$$G_0 = k_0 \newline G_1 = (x - x_0)^T k_1 \newline G_2 = (x - x_0)^T k_2 (x - x_0) - \sigma^2 \sum_j k_2^{jj}\newline$$
 
 Since each functional are orthogonal over the data distribution, we can easily calculate them using an iterative procedure:
 
@@ -57,14 +55,11 @@ $$\hat k_0 = \arg \min_{k_0} \sum(y - k_0)^2 = \bar y$$
 
 For the first-order kernel:
 
-$$\hat k_1 = \arg \min_{k_1} \sum(y - \bar y - (x - x_0)^T k_1 )^2 \newline
-= ((x - x_0)^T (x-x_0))^{-1} (x-x_0)^T (y - \bar y) \newline
-\approx \frac{1}{N \sigma^2} (x-x_0)^T (y - \bar y)$$
+$$\hat k_1 = \arg \min_{k_1} \sum(y - \bar y - (x - x_0)^T k_1 )^2 \newline = ((x - x_0)^T (x-x_0))^{-1} (x-x_0)^T (y - \bar y) \newline \approx \frac{1}{N \sigma^2} (x-x_0)^T (y - \bar y)$$
 
 Here the approximate sign comes from the fact that with normally distributed data, $(x - x_0)^T (x-x_0) \approx N\sigma^2 I$. The second order kernel is a little more tricky. We first define $r = y - \bar y - (x - x_0)^T$. Then:
 
-$$k_2 = \arg \min_{k_2} \sum \left(r - (x - x_0)^T k_2 (x - x_0) + \sigma^2 \sum_j k_2^{jj} \right)^2 \newline
-= \text{unstack}((D^T D)^{-1} D^T r) \newline$$
+$$k_2 = \arg \min_{k_2} \sum \left(r - (x - x_0)^T k_2 (x - x_0) + \sigma^2 \sum_j k_2^{jj} \right)^2 \newline = \text{unstack}((D^T D)^{-1} D^T r) \newline$$
 
 The columns of the matrix $D$ is composed of all the cross-products $x_i x_j - \delta_{ij} \sigma^2$ for $i \ge j$. The operator $\text{unstack}$ takes this linear representation of the coefficients and transforms them to a matrix. Here again, we find that for normally distributed inputs, the non-diagonal terms in the covariance matrix $D^TD$ have an expected value of zero. 
 The inverse of the diagonal is a bit more tricky to calculate, but a little bit of grinding shows that we pick up a scalar factor $\frac{1}{2!\sigma^{4}}$. In fact, we can show that the estimate of the kernels can be written as:
@@ -96,8 +91,7 @@ The setup is quite clever. We have a function $f$ that we are trying to optimize
 
 To compute the expected value, we expand it via its definition, and obtain:
 
-$$\nabla_\theta \mathbb E_\pi(z, \theta)[f(z)] = \nabla \int \pi(z, \theta) f(z) dz \newline = \int \nabla \pi(z, \theta) f(z) dz \newline
-= \int \nabla \log \pi(z, \theta) \pi(z, \theta) f(z) dz$$
+$$\nabla_\theta \mathbb E_\pi(z, \theta)[f(z)] = \nabla \int \pi(z, \theta) f(z) dz \newline = \int \nabla \pi(z, \theta) f(z) dz \newline = \int \nabla \log \pi(z, \theta) \pi(z, \theta) f(z) dz$$
 
 The last equality, which is also called the [log-derivative trick](http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5-log-derivative-trick/) is derived from:
 
@@ -105,9 +99,7 @@ $$\nabla \log \pi(z,\theta) = \frac{\nabla \pi(z, \theta)}{\pi(z, \theta)}$$
 
 A standard neighborhood which is often used in practice is the isotropic gaussian centered at $\mu$ with a standard deviation $\sigma$. If we take a Monte Carlo estimate of the expectation, we find an approximation for the gradient as:
 
-$$\nabla E[f] \approx \frac{1}{N} \sum_{1}^N \nabla_\mu \log N(\mu, \sigma^2) \newline = \frac{1}{N} \sum_{1}^N 
-
-\frac{1}{\sigma^2} (z-\mu) f(z)$$
+$$\nabla E[f] \approx \frac{1}{N} \sum_{1}^N \nabla_\mu \log N(\mu, \sigma^2) \newline = \frac{1}{N} \sum_{1}^N \frac{1}{\sigma^2} (z-\mu) f(z)$$
 
 Notice this remarkable equation: this is exactly the response-triggered average with an isotropic gaussian stimulus ensemble. Thus, we can view reverse correlation as estimating an approximate gradient of the response function of a neuron. This reveals an unexpected link between reverse correlation and optimization: 
 
